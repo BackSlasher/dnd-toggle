@@ -1,6 +1,8 @@
 package com.example.dndtoggle
 
 import android.app.NotificationManager
+import android.app.PendingIntent
+
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Icon
@@ -25,9 +27,7 @@ class DnDTileService : TileService() {
     override fun onClick() {
         super.onClick()
         if (!notificationManager.isNotificationPolicyAccessGranted) {
-            val intent = Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivityAndCollapse(intent)
+            // Do nothing on short click if permission is not granted
             return
         }
 
@@ -38,6 +38,10 @@ class DnDTileService : TileService() {
         }
         updateTile()
     }
+
+    
+
+    
 
     private fun updateTile() {
         val tile = qsTile
