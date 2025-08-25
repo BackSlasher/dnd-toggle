@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.provider.Settings
 import android.view.View
 import android.widget.Button
+import android.content.ComponentName
+import android.service.quicksettings.TileService
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
@@ -40,5 +42,6 @@ class MainActivity : AppCompatActivity() {
         } else {
             permissionButton.visibility = View.VISIBLE
         }
+        TileService.requestListeningState(this, ComponentName(this, DnDTileService::class.java))
     }
 }
