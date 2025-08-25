@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Dnd Toggle</string>
+    <string name="tile_label">DND Toggle</string>
+</resources>

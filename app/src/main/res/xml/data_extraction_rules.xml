@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-extraction-rules>
+    <cloud-backup>
+        <!-- For more information on what to include and exclude from cloud backup, see https://developer.android.com/guide/topics/data/autobackup#IncludeExclude
+        This file is a default configuration for the Auto Backup feature. -->
+        <include domain="sharedpref" path="."/>
+        <exclude domain="database" path=""/>
+        <exclude domain="external" path=""/>
+        <exclude domain="root" path=""/>
+    </cloud-backup>
+</data-extraction-rules>
