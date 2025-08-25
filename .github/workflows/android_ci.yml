@@ -30,21 +30,20 @@ jobs:
     - name: Build release APK
       run: ./gradlew assembleRelease
 
-    - name: Sign APK
-      run: |
-        echo "${{ secrets.KEYSTORE_FILE }}" | base64 --decode > app-release.jks
-        jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 \
-          -keystore app-release.jks \
-          -storepass ${{ secrets.KEYSTORE_PASSWORD }} \
-          -keypass ${{ secrets.KEY_PASSWORD }} \
-          app/build/outputs/apk/release/app-release-unsigned.apk \
-          ${{ secrets.KEY_ALIAS }}
-
     - name: Zipalign APK
       run: |
         ${{ env.ANDROID_HOME }}/build-tools/$(ls ${{ env.ANDROID_HOME }}/build-tools | sort -V | tail -1)/zipalign -v 4 \
           app/build/outputs/apk/release/app-release-unsigned.apk \
-          app/build/outputs/apk/release/app-release-signed-aligned.apk
+          app/build/outputs/apk/release/app-release-unsigned-aligned.apk
+
+    - name: Sign APK
+      run: |
+        echo "${{ secrets.KEYSTORE_FILE }}" | base64 --decode > app-release.jks
+        ${{ env.ANDROID_HOME }}/build-tools/$(ls ${{ env.ANDROID_HOME }}/build-tools | sort -V | tail -1)/apksigner sign --ks app-release.jks \
+          --ks-pass pass:${{ secrets.KEYSTORE_PASSWORD }} \
+          --key-pass pass:${{ secrets.KEY_PASSWORD }} \
+          --out app/build/outputs/apk/release/app-release-signed.apk \
+          app/build/outputs/apk/release/app-release-unsigned-aligned.apk
 
     - name: Create Release
       id: create_release
@@ -64,6 +63,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: app/build/outputs/apk/release/app-release-signed-aligned.apk
+        asset_path: app/build/outputs/apk/release/app-release-signed.apk
         asset_name: dnd-toggle-v${{ github.run_number }}.apk
         asset_content_type: application/vnd.android.package-archive
