@@ -1,4 +1,4 @@
-package com.example.dndtoggle
+package net.backslasher.dndtoggle
 
 import android.app.Activity
 import android.content.Intent

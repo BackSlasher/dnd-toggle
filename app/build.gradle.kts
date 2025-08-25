@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.dndtoggle"
+    namespace = "net.backslasher.dndtoggle"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.dndtoggle"
+        applicationId = "net.backslasher.dndtoggle"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
