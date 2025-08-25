@@ -22,9 +22,9 @@ Apps usually can't access DND. If the app doesn't have access, it'll be "grayed 
 ![unavailable](docs/invalid.png)  
 To allow this app to access it, long click on the tile to access the app screen.  
 Then click the button to go to system settings  
-![](docs/grant1.jpg)  
+![](docs/grant1.png)  
 There, select our app  
-![](docs/grant2.jpg)  
+![](docs/grant2.png)  
 DND access will be off  
 ![](docs/grant3.jpg)  
 Set it to on  
