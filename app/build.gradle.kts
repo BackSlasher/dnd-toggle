@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
 }
 
+description = "Toggle Do Not Disturb mode via Quick Settings."
+
 android {
     namespace = "net.backslasher.dndtoggle"
     compileSdk = 34
@@ -11,8 +13,8 @@ android {
         applicationId = "net.backslasher.dndtoggle"
         minSdk = 24
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "1.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
