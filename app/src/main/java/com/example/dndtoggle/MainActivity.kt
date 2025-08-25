@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.provider.Settings
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import android.content.ComponentName
 import android.service.quicksettings.TileService
 import androidx.appcompat.app.AppCompatActivity
@@ -22,26 +23,28 @@ class MainActivity : AppCompatActivity() {
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         val permissionButton = findViewById<Button>(R.id.permission_button)
+        val permissionStatusText = findViewById<TextView>(R.id.permission_status_text)
 
-        if (notificationManager.isNotificationPolicyAccessGranted) {
-            permissionButton.visibility = View.GONE
-        } else {
-            permissionButton.visibility = View.VISIBLE
-            permissionButton.setOnClickListener {
-                val intent = Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS)
-                startActivity(intent)
-            }
+        permissionButton.setOnClickListener {
+            val intent = Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS)
+            startActivity(intent)
         }
+
+        updateUi()
     }
 
     override fun onResume() {
         super.onResume()
-        val permissionButton = findViewById<Button>(R.id.permission_button)
-        if (notificationManager.isNotificationPolicyAccessGranted) {
-            permissionButton.visibility = View.GONE
-        } else {
-            permissionButton.visibility = View.VISIBLE
-        }
+        updateUi()
         TileService.requestListeningState(this, ComponentName(this, DnDTileService::class.java))
+    }
+
+    private fun updateUi() {
+        val permissionStatusText = findViewById<TextView>(R.id.permission_status_text)
+        if (notificationManager.isNotificationPolicyAccessGranted) {
+            permissionStatusText.text = "DND Permissions: Granted ✅"
+        } else {
+            permissionStatusText.text = "DND Permissions: Not Granted ❌"
+        }
     }
 }

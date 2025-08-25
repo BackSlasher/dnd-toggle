@@ -6,14 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/permission_status_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DND Permissions: Unknown"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/permission_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
     <Button
         android:id="@+id/permission_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Grant Do Not Disturb Permission"
+        android:text="Go to System Settings"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/permission_status_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
