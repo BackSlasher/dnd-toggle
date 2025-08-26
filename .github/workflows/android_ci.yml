@@ -37,13 +37,13 @@ jobs:
         SIGNING_STORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
 
     - name: Upload APK artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: dnd-toggle-apk
         path: app/build/outputs/apk/release/app-release.apk
 
     - name: Upload AAB artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: dnd-toggle-aab
         path: app/build/outputs/bundle/release/app-release.aab
@@ -59,12 +59,12 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Download APK artifact
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: dnd-toggle-apk
 
     - name: Download AAB artifact
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: dnd-toggle-aab
 
