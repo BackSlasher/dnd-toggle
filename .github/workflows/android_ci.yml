@@ -2,8 +2,6 @@ name: Android CI
 
 on:
   push:
-    branches:
-      - main
 
 jobs:
   build:
@@ -27,23 +25,48 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
-    - name: Build release APK
-      run: ./gradlew assembleRelease
-
-    - name: Zipalign APK
-      run: |
-        ${{ env.ANDROID_HOME }}/build-tools/$(ls ${{ env.ANDROID_HOME }}/build-tools | sort -V | tail -1)/zipalign -v 4 \
-          app/build/outputs/apk/release/app-release-unsigned.apk \
-          app/build/outputs/apk/release/app-release-unsigned-aligned.apk
-
-    - name: Sign APK
+    - name: Decode keystore
       run: |
         echo "${{ secrets.KEYSTORE_FILE }}" | base64 --decode > app-release.jks
-        ${{ env.ANDROID_HOME }}/build-tools/$(ls ${{ env.ANDROID_HOME }}/build-tools | sort -V | tail -1)/apksigner sign --ks app-release.jks \
-          --ks-pass pass:${{ secrets.KEYSTORE_PASSWORD }} \
-          --key-pass pass:${{ secrets.KEY_PASSWORD }} \
-          --out app/build/outputs/apk/release/app-release-signed.apk \
-          app/build/outputs/apk/release/app-release-unsigned-aligned.apk
+
+    - name: Build release artifacts
+      run: ./gradlew assembleRelease bundleRelease
+      env:
+        SIGNING_KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+        SIGNING_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        SIGNING_STORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+
+    - name: Upload APK artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: dnd-toggle-apk
+        path: app/build/outputs/apk/release/app-release.apk
+
+    - name: Upload AAB artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: dnd-toggle-aab
+        path: app/build/outputs/bundle/release/app-release.aab
+
+  release:
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Download APK artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: dnd-toggle-apk
+
+    - name: Download AAB artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: dnd-toggle-aab
 
     - name: Get Version Name
       id: get_version
@@ -62,13 +85,24 @@ jobs:
         draft: false
         prerelease: false
 
-    - name: Upload Release Asset
-      id: upload-release-asset
+    - name: Upload Release AAB
+      id: upload-release-aab
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: app/build/outputs/apk/release/app-release-signed.apk
+        asset_path: app-release.aab
+        asset_name: dnd-toggle-v${{ steps.get_version.outputs.version_name }}.aab
+        asset_content_type: application/vnd.android.package-archive
+
+    - name: Upload Release APK
+      id: upload-release-apk
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: app-release.apk
         asset_name: dnd-toggle-v${{ steps.get_version.outputs.version_name }}.apk
         asset_content_type: application/vnd.android.package-archive

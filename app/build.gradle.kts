@@ -9,6 +9,15 @@ android {
     namespace = "net.backslasher.dndtoggle"
     compileSdk = 34
 
+    signingConfigs {
+        create("release") {
+            keyAlias = System.getenv("SIGNING_KEY_ALIAS")
+            keyPassword = System.getenv("SIGNING_KEY_PASSWORD")
+            storeFile = file("../app-release.jks")
+            storePassword = System.getenv("SIGNING_STORE_PASSWORD")
+        }
+    }
+
     defaultConfig {
         applicationId = "net.backslasher.dndtoggle"
         minSdk = 24
@@ -26,6 +35,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
     }
     compileOptions {
@@ -46,5 +56,3 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }
-
-
