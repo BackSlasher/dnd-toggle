@@ -33,3 +33,13 @@ The app should now work
 
 ## Contributing
 PRs and issues welcome
+
+## Changelog
+
+### Version 1.5
+- Some linting.
+
+### Version 1.4
+- Migrated project to API level 35.
+- Updated Gradle to version 8.4.
+- Updated Android Gradle Plugin to version 8.6.0.

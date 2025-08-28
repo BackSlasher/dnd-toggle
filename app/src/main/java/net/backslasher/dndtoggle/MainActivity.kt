@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity() {
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         val permissionButton = findViewById<Button>(R.id.permission_button)
-        val permissionStatusText = findViewById<TextView>(R.id.permission_status_text)
 
         permissionButton.setOnClickListener {
             val intent = Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS)

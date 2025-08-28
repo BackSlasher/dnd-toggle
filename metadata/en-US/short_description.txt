@@ -1,1 +1,1 @@
-Toggle DND from a Quick Settings tile
+Toggle DND from a Quick Settings tile. Now with support for API level 35.

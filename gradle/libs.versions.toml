@@ -1,5 +1,5 @@
 [versions]
-androidApplication = "8.1.2"
+androidApplication = "8.6.0"
 jetbrainsKotlinAndroid = "1.9.0"
 coreKtx = "1.10.1"
 junit = "4.13.2"

@@ -7,7 +7,7 @@ description = "Toggle Do Not Disturb mode via Quick Settings."
 
 android {
     namespace = "net.backslasher.dndtoggle"
-    compileSdk = 34
+    compileSdk = 35
 
     signingConfigs {
         create("release") {
@@ -21,9 +21,9 @@ android {
     defaultConfig {
         applicationId = "net.backslasher.dndtoggle"
         minSdk = 24
-        targetSdk = 34
-        versionCode = 4
-        versionName = "1.3"
+        targetSdk = 35
+        versionCode = 5
+        versionName = "1.5"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
