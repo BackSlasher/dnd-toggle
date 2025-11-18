@@ -9,6 +9,13 @@ android {
     namespace = "net.backslasher.dndtoggle"
     compileSdk = 35
 
+    dependenciesInfo {
+        // Disables dependency metadata when building APKs.
+        includeInApk = false
+        // Disables dependency metadata when building Android App Bundles.
+        includeInBundle = false
+    }
+
     signingConfigs {
         create("release") {
             keyAlias = System.getenv("SIGNING_KEY_ALIAS")
