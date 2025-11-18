@@ -5,6 +5,9 @@ Vibe-coded with Gemini, written with Kotlin.
 
 ## Changelog
 
+### Version 1.6
+- Disabled dependency metadata in APKs and bundles.
+
 ### Version 1.5
 - Some linting.
 

@@ -34,7 +34,18 @@ The app should now work
 ## Contributing
 PRs and issues welcome
 
+## Development
+
+### Bumping Versions
+When releasing a new version, update the following files:
+1. `app/build.gradle.kts` - Update `versionCode` and `versionName` in the `defaultConfig` section
+2. `README.md` - Add a new version entry in the Changelog section
+3. `metadata/en-US/full_description.txt` - Add a new version entry in the Changelog section
+
 ## Changelog
+
+### Version 1.6
+- Disabled dependency metadata in APKs and bundles.
 
 ### Version 1.5
 - Some linting.
