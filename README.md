@@ -41,19 +41,3 @@ When releasing a new version, update the following files:
 1. `app/build.gradle.kts` - Update `versionCode` and `versionName` in the `defaultConfig` section
 2. `README.md` - Add a new version entry in the Changelog section
 3. `metadata/en-US/changelogs/` - Add a new file named with `${versionCode}.txt` with changes
-
-## Changelog
-
-### Version 1.7
-- Updated bumping procedure documentation.
-
-### Version 1.6
-- Disabled dependency metadata in APKs and bundles.
-
-### Version 1.5
-- Some linting.
-
-### Version 1.4
-- Migrated project to API level 35.
-- Updated Gradle to version 8.4.
-- Updated Android Gradle Plugin to version 8.6.0.

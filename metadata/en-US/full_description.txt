@@ -2,16 +2,3 @@ Adds a "Quick Settings Tile" that toggles Do Not Disturb.
 
 Created because an Android version upgrade made it 2 clicks to toggle DND (since they have several modes now).  
 Vibe-coded with Gemini, written with Kotlin.  
-
-## Changelog
-
-### Version 1.6
-- Disabled dependency metadata in APKs and bundles.
-
-### Version 1.5
-- Some linting.
-
-### Version 1.4
-- Migrated project to API level 35.
-- Updated Gradle to version 8.4.
-- Updated Android Gradle Plugin to version 8.6.0.  
